@@ -21,17 +21,17 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const [err, task] = await withCatch ( TasksModel.insert(req.body) )
+    const [err, newTask] = await withCatch( TasksModel.insert(req.body) )
 
     if (err) res.status(500).json({error: "There was a problem when adding the task to the database."})
-    else res.status(201).json(task)
+    else res.status(201).json(newTask)
 })
 
 router.put('/:id', async (req, res) => {
-    const [err, task] = await withCatch ( TasksModel.update(req.params.id, req.body) )
+    const [err, updatedTask] = await withCatch( TasksModel.update(req.params.id, req.body) )
 
     if (err) res.status(500).json({error: "There was a problem when updating the task with the specified Id."})
-    else res.status(200).json(task)
+    else res.status(200).json(updatedTask)
 })
 
 router.delete('/:id', async (req, res) => {
