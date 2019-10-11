@@ -10,12 +10,17 @@ module.exports = {
         .where({id})
     },
 
-    getProjects() {
-
-    },
-
-    getProjectsById(id) {
-
+    getProjectsByResourceId(id) {
+        return db
+        .select(
+            'rp.id', 'rp.resource_id', 'rp.project_id',
+            'p.name as projectName', 'p.description as projectDescription', 'p.completed',
+            'r.name as resourceName', 'r.description as resourceDescription'
+        )
+        .from('resources-projects as rp')
+        .where({resource_id: id})
+        .join('resources as r', 'r.id', 'rp.resource_id')
+        .join('projects as p', 'p.id', 'rp.project_id')
     },
 
     insert(resource) {
