@@ -20,12 +20,32 @@ router.get('/:id', async (req, res) => {
     else res.status(200).json(project[0])
 })
 
-router.get('/:id/tasks', async (req, res) => {
+router.get('/:id/tasksAndResources', async (req, res) => {
+    const [err, project] = await withCatch( ProjectsModel.findById(req.params.id) )
 
-})
-
-router.get('/:id/resources', async (req, res) => {
-    
+    if (err) res.status(404).json({error: "Couldn't find the project with the specified Id."})
+    else if (!Object.keys(project).length) res.status(404).json({error: "Couldn't find the project with the specified Id."})
+    else {
+        const [err, tasks] = await withCatch( ProjectsModel.getTaks(req.params.id) )
+        if (err) res.status(404).json({
+            error: "Couldn't find the tasks for the project with the specified Id.",
+            project: project[0]
+        })
+        else if (!Object.keys(tasks).length) res.status(404).json({
+            error: "Couldn't find the tasks for the project with the specified Id.",
+            project: project[0]
+        })
+        else {
+            project[0].tasks = tasks
+            const [err, resources] = await withCatch( ProjectsModel.getResources(req.params.id) )
+            // Send a successful payload with just the tasks
+            if (err) res.status(200).json(project[0])
+            else {
+                project[0].resources = resources
+                res.status(200).json(project[0])
+            }
+        }
+    }
 })
 
 router.post('/', async (req, res) => {

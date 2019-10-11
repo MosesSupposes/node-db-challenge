@@ -20,12 +20,11 @@ router.get('/:id', async (req, res) => {
     else res.status(200).json(resource[0])
 })
 
-router.get('/projects', async (req, res) => {
-    
-})
-
 router.get('/:id/projects', async (req, res) => {
+    const [err, resourcesAndProjects] = await withCatch( ResourcesModel.getProjectsByResourceId(req.params.id) )
 
+    if (err) res.status(404).json({error: "Couldn't find the resources and projects with the specified resource Id."})
+    else res.status(200).json(resourcesAndProjects)
 })
 
 router.post('/', async (req, res) => {
