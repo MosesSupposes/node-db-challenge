@@ -11,14 +11,13 @@ module.exports = {
     },
 
     getTaks(id) {
-
-    },
-
-    getResources() {
-
+        return db('tasks')
+        .where({project_id: id})
     },
     
-    getResourcesById(projectId) {
+    getResources(id) {
+        return db('resources')
+        .where({id: projectId})
 
     },
     
