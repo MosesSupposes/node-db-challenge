@@ -1,0 +1,20 @@
+{
+  "name": "db-challenge",
+  "version": "1.0.0",
+  "description": "## Description",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MosesSupposes/node-db-challenge.git"
+  },
+  "author": "Moses Samuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MosesSupposes/node-db-challenge/issues"
+  },
+  "homepage": "https://github.com/MosesSupposes/node-db-challenge#readme"
+}
